@@ -1,0 +1,62 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<h1>Chat</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3">
+            <ul class="list-group">
+                @foreach (AppUser appUser in Model)
+                {
+                <li class="list-group-item">
+                    @if (appUser.UserName == User.Identity.Name)
+                    {
+                        @("You");
+                    }
+                    else
+                    {
+                        @appUser.FullName
+                    }
+                    <span id="@appUser.Id" data-name="@appUser.FullName" class="@(appUser.ConnectionId != null ? "greenColor":"grayColor")" style="width:10px;border-radius:50%;height:10px;"></span>
+                </li>
+                }
+            </ul>
+        </div>
+        <div class="col-lg-9">
+            <div class="container">
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-4"><input disabled type="hidden" id="userIdInput" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-2">User</div>
+                    <div class="col-4"><input disabled type="text" id="userInput" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-2">Message</div>
+                    <div class="col-4"><input type="text" id="messageInput" /></div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="button" id="sendButton" value="Send Message" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
